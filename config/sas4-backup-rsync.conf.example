@@ -1,0 +1,31 @@
+# SAS4 hourly rsync backup — copy to /etc/sas4-backup-rsync.conf on the SAS4 server.
+# chmod 600 /etc/sas4-backup-rsync.conf
+
+# Remote storage server (rsync over SSH)
+# Set your real IP/hostname only in /etc/sas4-backup-rsync.conf on the server — do not commit secrets.
+REMOTE_BACKUP_HOST="YOUR_STORAGE_SERVER_IP"
+REMOTE_BACKUP_PORT=22
+REMOTE_BACKUP_USER="root"
+REMOTE_BACKUP_PATH="/opt/Storage/SAS4/sas4-db"
+
+# SSH private key (see docs/SSH-SETUP.md)
+SSH_IDENTITY_FILE="/root/.ssh/sas4_backup_storage"
+
+# Local staging directory (created automatically)
+LOCAL_BACKUP_DIR="/var/backups/sas4-rsync"
+
+# Retention (days, by file modification time)
+LOCAL_RETENTION_DAYS=7
+REMOTE_RETENTION_DAYS=30
+
+# SAS4 paths (change only if your install differs)
+SAS4_CONFIG_INI="/opt/sas4/etc/config.ini"
+SAS4_VERSION_INI="/opt/sas4/etc/version.ini"
+SAS4_SASCONFIG="/opt/sas4/scripts/sasconfig.sh"
+
+# Lock files
+VENDOR_LOCK_FILE="/tmp/sas_backup.lock"
+SCRIPT_LOCK_FILE="/tmp/sas4-rsync-backup.lock"
+
+# Log file (script also writes here; cron may append the same path)
+LOG_FILE="/var/log/sas4-backup-rsync.log"
